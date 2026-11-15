@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: xray-node-us
+    runtime: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: UUID
+        sync: false
+      - key: WS_PATH
+        sync: false
