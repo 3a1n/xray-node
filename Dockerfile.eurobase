@@ -1,0 +1,14 @@
+FROM alpine:3.20
+
+RUN apk add --no-cache ca-certificates curl unzip nginx \
+ && curl -fsSL -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/download/v26.11.9/Xray-linux-64.zip \
+ && unzip -o /tmp/xray.zip xray -d /usr/local/bin \
+ && chmod +x /usr/local/bin/xray \
+ && rm /tmp/xray.zip \
+ && mkdir -p /var/lib/nginx/tmp /var/log/nginx /run/nginx
+
+COPY config.template.json /usr/local/etc/xray/config.template.json
+COPY nginx.conf.template /usr/local/etc/nginx/nginx.conf.template
+COPY --chmod=0755 entrypoint-eurobase.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
