@@ -25,3 +25,5 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/3a1n/xray-node:latest
+          provenance: false
+          sbom: false
